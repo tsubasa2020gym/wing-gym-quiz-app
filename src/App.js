@@ -13,6 +13,12 @@ const quizData = [
     answer: "足",
     explanation: "踏み切りは足で地面を強く蹴ることで跳び上がります。",
   },
+  {
+    question: "後転で気をつけることは？",
+    options: ["ひざ", "手", "足", "おしり"],
+    answer: "足",
+    explanation: "踏み切りは足で地面を強く蹴ることで跳び上がります。",
+  },
 ];
 
 function App() {
