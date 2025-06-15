@@ -11,6 +11,11 @@ const quizData = [
     options: ["ひざ", "手", "足", "おしり"],
     answer: "足",
   },
+  {
+    question: "倒立で注意することは？",
+    options: ["手と手の間を見る", "肘を曲げる", "ふにゃふにゃする", "おしり"],
+    answer: "手と手の間を見る",
+  },
 ];
 
 function App() {
