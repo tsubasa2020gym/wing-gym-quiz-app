@@ -18,7 +18,6 @@ const quizData = [
 function App() {
   const [q, setQ] = useState(0);
   const [score, setScore] = useState(0);
-  // 間違えた問題を配列で記録する
   const [wrongQuestions, setWrongQuestions] = useState([]);
   const [end, setEnd] = useState(false);
 
@@ -26,8 +25,16 @@ function App() {
     if (option === quizData[q].answer) {
       setScore(score + 1);
     } else {
-      // 間違えた問題を追加
-      setWrongQuestions([...wrongQuestions, quizData[q]]);
+      // 選んだ答えも一緒に記録
+      setWrongQuestions([
+        ...wrongQuestions,
+        {
+          question: quizData[q].question,
+          answer: quizData[q].answer,
+          explanation: quizData[q].explanation,
+          selected: option, // ユーザーが選んだ答え
+        },
+      ]);
     }
     if (q + 1 < quizData.length) setQ(q + 1);
     else setEnd(true);
@@ -49,6 +56,8 @@ function App() {
                 {wrongQuestions.map((item, i) => (
                   <li key={i} style={{ marginBottom: 20 }}>
                     <strong>問題：</strong> {item.question}
+                    <br />
+                    <strong>あなたの答え：</strong> <span style={{ color: "red" }}>{item.selected}</span>
                     <br />
                     <strong>正解：</strong> {item.answer}
                     <br />
@@ -86,3 +95,4 @@ function App() {
 }
 
 export default App;
+
