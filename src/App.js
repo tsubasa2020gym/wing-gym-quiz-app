@@ -5,26 +5,30 @@ const quizData = [
     question: "前転で気をつけることは？",
     options: ["目を閉じる", "あごを引く", "手を広げる", "ジャンプする"],
     answer: "あごを引く",
+    explanation: "前転はあごをしっかり引いて頭を守ることが大切です。",
   },
   {
     question: "跳び箱の踏み切りで使うのは？",
     options: ["ひざ", "手", "足", "おしり"],
     answer: "足",
-  },
-  {
-    question: "倒立で注意することは？",
-    options: ["手と手の間を見る", "肘を曲げる", "ふにゃふにゃする", "おしり"],
-    answer: "手と手の間を見る",
+    explanation: "踏み切りは足で地面を強く蹴ることで跳び上がります。",
   },
 ];
 
 function App() {
   const [q, setQ] = useState(0);
   const [score, setScore] = useState(0);
+  // 間違えた問題を配列で記録する
+  const [wrongQuestions, setWrongQuestions] = useState([]);
   const [end, setEnd] = useState(false);
 
   const checkAnswer = (option) => {
-    if (option === quizData[q].answer) setScore(score + 1);
+    if (option === quizData[q].answer) {
+      setScore(score + 1);
+    } else {
+      // 間違えた問題を追加
+      setWrongQuestions([...wrongQuestions, quizData[q]]);
+    }
     if (q + 1 < quizData.length) setQ(q + 1);
     else setEnd(true);
   };
@@ -33,7 +37,28 @@ function App() {
     <div style={{ padding: 20, textAlign: "center" }}>
       <h1>WiNG GYM クイズ</h1>
       {end ? (
-        <h2>スコア: {score} / {quizData.length}</h2>
+        <>
+          <h2>
+            スコア: {score} / {quizData.length}
+          </h2>
+
+          {wrongQuestions.length > 0 && (
+            <>
+              <h3>間違えた問題と解説</h3>
+              <ul style={{ textAlign: "left", maxWidth: 500, margin: "0 auto" }}>
+                {wrongQuestions.map((item, i) => (
+                  <li key={i} style={{ marginBottom: 20 }}>
+                    <strong>問題：</strong> {item.question}
+                    <br />
+                    <strong>正解：</strong> {item.answer}
+                    <br />
+                    <strong>解説：</strong> {item.explanation}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </>
       ) : (
         <>
           <h2>{quizData[q].question}</h2>
